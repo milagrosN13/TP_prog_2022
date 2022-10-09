@@ -39,9 +39,9 @@ class ControladorSesion
     }
 
     public function modificarMail($email){
-        $id = Usuario::getId();
-        if (RepositorioUsuario::modificar($email, $id)===true){
-            Usuario::setEmail($email);
+        $id = $Usuario->getId();
+        if ($RepositorioUsuario->modificar($email, $id)===true){
+            $Usuario->setEmail($email);
             return "operacion realizada exitosamente" ;
         }else{
             return "operacion no realizada";

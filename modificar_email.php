@@ -23,7 +23,7 @@
 require_once 'clases/ControladorSesion.php';
 
 if (isset($_GET['email'])){
-    return self::ControladorSesion->modificarMail($_GET['email']);
+    return $ControladorSesion->modificarMail($_GET['email']);
 }else {
     return "no se escribio nada";
 }
