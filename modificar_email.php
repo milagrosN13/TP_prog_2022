@@ -20,13 +20,10 @@
 </html>
 
 <?php 
-require_once 'clases/Usuario.php';
-
-session_start();
-$usuario = unserialize($_SESSION['usuario']);
+require_once 'clases/ControladorSesion.php';
 
 if (isset($_GET['email'])){
-    return $usuario->setEmail($_GET['email'],($usuario->getId()));
+    return self::ControladorSesion->modificarMail($_GET['email']);
 }else {
     return "no se escribio nada";
 }

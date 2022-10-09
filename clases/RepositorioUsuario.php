@@ -1,30 +1,14 @@
 <?php
-require_once '.env.php';
+require_once 'Repositorio.php';
 require_once 'Usuario.php';
 
-class RepositorioUsuario
+class RepositorioUsuario extends Repositorio
 {
     private static $conexion = null;
 
     public function __construct()
     {
-        if (is_null(self::$conexion)) {
-            $credenciales = credenciales();
-            self::$conexion = new mysqli(
-                $credenciales['host'], 
-                $credenciales['user'], 
-                $credenciales['password'], 
-                $credenciales['dbname'], 
-                $credenciales['port'], 
-                $credenciales['socket']
-            );
-            if (self::$conexion->connect_error) {
-                $error = 'Error de conexión: ' . self::$conexion->connect_error;
-                self::$conexion = null;
-                die($error);
-            }
-            self::$conexion->set_charset('utf8');
-        }
+        parent::__construct();
     }
 
     public function login($nombre_usuario, $clave)
@@ -70,15 +54,17 @@ class RepositorioUsuario
             return false;
         }
     }
-    public function modificar(Usuario $email, $id)
+    public function modificar($email, $id)
     {
     $q = "UPDATE usuarios SET email = ? WHERE id = ?";
         $query = self::$conexion->prepare($q);
         $query->bind_param("sd", $email, $id);
 
         if ($query->execute()) {
+            //retorno verdadero se cambia el valor del objeto Usuario
             return true;
         }
+            // No se modifico, retorna false
             return false;
         }
 }
