@@ -1,5 +1,4 @@
 <?php
-require_once 'RepositorioUsuario.php';
 class Usuario
 {
     protected $id;
@@ -24,13 +23,5 @@ class Usuario
     public function getApellido() {return $this->apellido;}
     public function getNombreApellido() {return "$this->nombre $this->apellido";}
     public function getEmail(){return $this->email;}
-    
-    public function setEmail($email, $id){
-        modificar($email, $id);
-        if (true){
-            return $this->email = $email;
-        }else{
-            return "hubo un error";
-        }
-    }
+    public function setEmail($email, $id){return $this->email = $email;}
 }

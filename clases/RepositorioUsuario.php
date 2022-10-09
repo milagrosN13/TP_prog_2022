@@ -11,10 +11,12 @@ class RepositorioUsuario
         if (is_null(self::$conexion)) {
             $credenciales = credenciales();
             self::$conexion = new mysqli(
-                $credenciales['servidor'],
-                $credenciales['usuario'],
-                $credenciales['clave'],
-                $credenciales['base_de_datos'],
+                $credenciales['host'], 
+                $credenciales['user'], 
+                $credenciales['password'], 
+                $credenciales['dbname'], 
+                $credenciales['port'], 
+                $credenciales['socket']
             );
             if (self::$conexion->connect_error) {
                 $error = 'Error de conexión: ' . self::$conexion->connect_error;
@@ -68,7 +70,7 @@ class RepositorioUsuario
             return false;
         }
     }
-    public function modificar($email, $id)
+    public function modificar(Usuario $email, $id)
     {
     $q = "UPDATE usuarios SET email = ? WHERE id = ?";
         $query = self::$conexion->prepare($q);
