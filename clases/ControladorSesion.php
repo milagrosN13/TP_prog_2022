@@ -1,6 +1,7 @@
 <?php
 
 require_once 'RepositorioUsuario.php';
+require_once 'RepositorioProducto.php';
 require_once 'Usuario.php';
 
 class ControladorSesion
@@ -39,12 +40,35 @@ class ControladorSesion
     }
 
     public function modificarMail($email){
-        $id = $Usuario->getId();
-        if ($RepositorioUsuario->modificar($email, $id)===true){
-            $Usuario->setEmail($email);
-            return "operacion realizada exitosamente" ;
+
+        $repo = new RepositorioUsuario();
+        session_start();
+        $usuario = $_SESSION['usuario'];
+        $id=$usuario->getId();
+        $Mmail = $repo->modificar($email, $id);
+        
+        if ($Mmail===true){
+
+            $usuario->setEmail($email);
+            return true."operacion realizada exitosamente" ;
         }else{
-            return "operacion no realizada";
+            return false."operacion no realizada";
         };
+    }
+
+    public function createProducto($nombre, $precio, $cantidad)
+    {
+        $repoP = new RepositorioProducto();
+        $producto = new Producto($nombre, $precio, $cantidad);
+        $id = $repoP->create ();
+        
+        if ( $id === false) {
+            return [false, "Error al crear producto"];
+        } else {
+            $producto->setId($id);
+            session_start();
+            $_SESSION['producto'] = serialize($producto);
+            return [true, "producto creado correctamente"];
+        }
     }
 }

@@ -3,7 +3,7 @@ require_once '.env.php';
 
 class Repositorio
 {
-    private static $conexion = null;
+    public static $conexion = null;
     public function __construct()
     {
         if (is_null(self::$conexion)) {

@@ -22,9 +22,11 @@
 <?php 
 require_once 'clases/ControladorSesion.php';
 
+$cs = new ControladorSesion();
+
 if (isset($_GET['email'])){
-    return $ControladorSesion->modificarMail($_GET['email']);
+    return $cs->modificarMail($_GET['email'],);
 }else {
-    return "no se escribio nada";
+    return false."no se escribio nada";
 }
 ?>

@@ -2,14 +2,16 @@
 require_once 'Repositorio.php';
 require_once 'Producto.php';
 
-class RepositorioUsuario extends Repositorio
+class RepositorioProducto extends Repositorio
 {
+    static $conexion = null;
+
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function create () {
+    public function create (Producto $producto) {
         $q = "INSERT INTO productos (nombre,precio,cantidad,usuario)";
         $q.= "VALUES (?, ?, ?, ?)";
 

@@ -27,4 +27,6 @@ class Producto
     public function getPrecio() {return $this->precio;}
     public function setPrecio($precio) {$this->precio = $precio;}
 
+    public function getCantidad() {return $this->precio;}
+    public function setCantidad($cantidad) {$this->cantidad = $cantidad;}
 }
