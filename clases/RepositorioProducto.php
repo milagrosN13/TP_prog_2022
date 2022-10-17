@@ -4,8 +4,6 @@ require_once 'Producto.php';
 
 class RepositorioProducto extends Repositorio
 {
-    static $conexion = null;
-
     public function __construct()
     {
         parent::__construct();

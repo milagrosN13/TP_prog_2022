@@ -60,7 +60,7 @@ class ControladorSesion
     {
         $repoP = new RepositorioProducto();
         $producto = new Producto($nombre, $precio, $cantidad);
-        $id = $repoP->create ();
+        $id = $repoP->create();
         
         if ( $id === false) {
             return [false, "Error al crear producto"];

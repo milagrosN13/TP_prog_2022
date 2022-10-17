@@ -4,8 +4,6 @@ require_once 'Usuario.php';
 
 class RepositorioUsuario extends Repositorio
 {
-    public static $conexion = null;
-
     public function __construct()
     {
         parent::__construct();
