@@ -18,8 +18,8 @@ class Producto
     }
 
     public function getId() {return $this->id;}
+
     public function getUsuario() {return $this->usuario;}
-    public function setId($id) {$this->id = $id;}
 
     public function getNombre() {return $this->nombre;}
     public function setNombre($nombre) {$this->nombre = $nombre;}

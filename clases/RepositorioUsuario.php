@@ -4,10 +4,6 @@ require_once 'Usuario.php';
 
 class RepositorioUsuario extends Repositorio
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function login($nombre_usuario, $clave)
     {

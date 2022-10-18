@@ -15,7 +15,9 @@
             <input name="email" class="form-control form-control-lg" placeholder="Ingrese el nuevo email"><br>
             <input type="submit" value="Modificar" class="btn btn-primary">
             </form>
-      </div> 
+            <br>
+            <button><a href="home.php">volver a perfil</a></button>
+        </div> 
     </body>
 </html>
 

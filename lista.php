@@ -19,9 +19,19 @@ if (isset($_SESSION['producto'])) {
     <body class="container">
         <div class="jumbotron text-center">
             <h1>Lista</h1>
+            <!--<table>
+                <?php
+                    /*foreach ($productos as $p) {
+                        echo '<tr><td>'.$p['id'].'</td><td>'.$p['nombre'].'</td>';
+                        echo '<td>'.$p['precio'].'</td><td>'.$p['cantidad'].'</td></tr>';
+                    }*/
+                ?>
+            </table>
+                -->
         </div>
         <div class="text-center">
-            <p><a href="home.php">volver a perfil</a></p>
+        <p><a href="agregarProducto.php">agregar producto</a></p>
+        <p><a href="home.php">volver a perfil</a></p>
         </div> 
     </body>
 </html>

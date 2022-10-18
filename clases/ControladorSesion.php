@@ -7,6 +7,9 @@ require_once 'Usuario.php';
 class ControladorSesion
 {
     protected $usuario = null;
+    protected $producto = null;
+    
+        /* TABLA USUARIO */
 
     public function login($nombre_usuario, $clave)
     {
@@ -43,7 +46,7 @@ class ControladorSesion
 
         $repo = new RepositorioUsuario();
         session_start();
-        $usuario = $_SESSION['usuario'];
+        $usuario = unserialize($_SESSION['usuario']);
         $id=$usuario->getId();
         $Mmail = $repo->modificar($email, $id);
         
@@ -56,19 +59,42 @@ class ControladorSesion
         };
     }
 
+            /* TABLA PRODUCTO*/
+
     public function createProducto($nombre, $precio, $cantidad)
     {
         $repoP = new RepositorioProducto();
-        $producto = new Producto($nombre, $precio, $cantidad);
-        $id = $repoP->create();
+
+        session_start();
+        $usuario = unserialize($_SESSION['usuario']);
+        $idUsuario=$usuario->getId();
+
+        $id = $repoP->create($nombre,$precio,$cantidad,$idUsuario);
         
         if ( $id === false) {
             return [false, "Error al crear producto"];
         } else {
-            $producto->setId($id);
-            session_start();
-            $_SESSION['producto'] = serialize($producto);
             return [true, "producto creado correctamente"];
         }
     }
+
+    public function editarProducto($nombre, $precio, $cantidad){
+
+        $repoP = new RepositorioProducto();
+
+        session_start();
+        $usuario= unserialize($_SESSION['usuario']);
+        $idUsuario=$usuario->getId();
+
+        $id = $repoP->create($nombre,$precio,$cantidad,$idUsuario);
+
+        if ( $id === false) {
+            return [false, "Error al crear producto"];
+        } else {
+
+            return [true, "producto fue modificado correctamente"];
+        }
+
+    }
+
 }

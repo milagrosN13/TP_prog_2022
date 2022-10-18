@@ -4,32 +4,25 @@ require_once 'Producto.php';
 
 class RepositorioProducto extends Repositorio
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
-    public function create (Producto $producto) {
-        $q = "INSERT INTO productos (nombre,precio,cantidad,usuario)";
+    public function create ($nombre,$precio,$cantidad,$idUsuario) {
+
+        $q = "INSERT INTO productos (nombre,precio,cantidad,id_usuario)";
         $q.= "VALUES (?, ?, ?, ?)";
 
         $query = self::$conexion->prepare($q);
-
-        $nombre = $producto->getNombre();
-        $precio = $producto->getPrecio();
-        $cantidad = $producto->getCantidad();
-        $usuario = $producto->getUsuario();
 
         $query->bind_param(
             "siis",
             $nombre,
             $precio,
             $cantidad,
-            $usuario
+            $idUsuario
         );
         if ($query->execute()) {
            // Se guardó bien, retornamos el id del producto
-            return self::$conexion->insert_id;
+            new Producto ($nombre, $precio, $cantidad, $usuario, $id = (self::$conexion->insert_id));
+            return true;
         } else {
            // No se guardó bien, retornamos false
             return false;
