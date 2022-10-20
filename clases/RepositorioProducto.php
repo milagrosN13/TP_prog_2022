@@ -20,7 +20,8 @@ class RepositorioProducto extends Repositorio
             $idUsuario
         );
         if ($query->execute()) {
-            return true;
+            return new Producto($nombre, $precio, $cantidad, $idUsuario);
+            
         } else {
            // No se guardó bien, retornamos false
             return false;
@@ -40,7 +41,11 @@ class RepositorioProducto extends Repositorio
         
     }
 
-    public function delete (){
-        
+    public function delete ($idProducto){
+        $q = "DELETE FROM producto WHERE id = ?";
+
+        $query = self::$conexion->prepare($q);
+
+        $query->bind_param("i",$idProducto);
     }
 }

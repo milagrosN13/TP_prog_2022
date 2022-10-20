@@ -43,8 +43,8 @@ class ControladorSesion
     }
 
     public function modificarMail($email){
-
         $repo = new RepositorioUsuario();
+        
         session_start();
         $usuario = unserialize($_SESSION['usuario']);
         $id=$usuario->getId();
@@ -60,21 +60,17 @@ class ControladorSesion
 
             /* TABLA PRODUCTO*/
 
-    public function createProducto($nombre, $precio, $cantidad)
-    {
+    public function createProducto($nombre, $precio, $cantidad){
         $repoP = new RepositorioProducto;
 
         session_start();
         $usuario = unserialize($_SESSION['usuario']);
         $idUsuario=$usuario->getId();
 
-        $id = $repoP->create($nombre,$precio,$cantidad,$idUsuario);
+        $producto = $repoP->create($nombre,$precio,$cantidad,$idUsuario);
         
-        if ( $id === false) {
-            return [false, "Error al crear producto"];
-        } else {
-            return [true, "producto creado correctamente"];
-        }
+        session_start();
+        $_SESSION['producto'][2] = serialize($producto);
     }
 
     public function listarProductos(){
@@ -82,10 +78,7 @@ class ControladorSesion
         return $respuesta = $repoP->read();
     }
 
-
-
     public function editarProducto($nombre, $precio, $cantidad){
-
         $repoP = new RepositorioProducto();
 
         session_start();
@@ -100,6 +93,13 @@ class ControladorSesion
 
             return [true, "producto fue modificado correctamente"];
         }
+
+    }
+
+    public function eliminarProducto(){
+
+        $repoP = new RepositorioProducto();
+
 
     }
 
