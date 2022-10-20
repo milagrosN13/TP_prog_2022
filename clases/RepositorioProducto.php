@@ -20,8 +20,6 @@ class RepositorioProducto extends Repositorio
             $idUsuario
         );
         if ($query->execute()) {
-           // Se guardó bien, retornamos el id del producto
-            new Producto ($nombre, $precio, $cantidad, $usuario, $id = (self::$conexion->insert_id));
             return true;
         } else {
            // No se guardó bien, retornamos false
@@ -30,8 +28,12 @@ class RepositorioProducto extends Repositorio
 
     }
 
-    public function read (){
-        
+    public function read(){
+        $q = "SELECT id, nombre, precio, cantidad, id_usuario FROM productos";
+        $query = self::$conexion->prepare($q);
+        if ($query->execute()) {
+            return /*resultado de la consulta en formato de lista */;
+        }
     }
 
     public function update (){
@@ -42,27 +44,3 @@ class RepositorioProducto extends Repositorio
         
     }
 }
-/*$q = "INSERT INTO usuarios (usuario, clave, nombre, apellido, email) ";
-        $q.= "VALUES (?, ?, ?, ?, ?)";
-        $query = self::$conexion->prepare($q);
-        $nombre_usuario = $usuario->getUsuario();
-        $nombre = $usuario->getNombre();
-        $apellido = $usuario->getApellido();
-        $email = $usuario->getEmail();
-        $clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
-        $query->bind_param(
-            "ssss",
-            $nombre_usuario,
-            $nombre,
-            $apellido,
-            $email,
-            $clave_encriptada
-        );
-        if ($query->execute()) {
-           // Se guardó bien, retornamos el id del usuario
-            return self::$conexion->insert_id;
-        } else {
-           // No se guardó bien, retornamos false
-            return false;
-        }
-        */

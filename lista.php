@@ -1,12 +1,10 @@
 <?php
-/*require_once 'clases/Usuario.php';
-session_start();
-if (isset($_SESSION['producto'])) {
-    $usuario = unserialize($_SESSION['producto']);
-    //$lista = $producto->getNombre();
-} else {
-    header('Location: index.php');
-}*/
+require_once 'clases/ControladorSesion.php';
+
+$repoP = new ControladorSesion;
+
+$Lproductos = $repoP->listarProductos();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,17 +17,21 @@ if (isset($_SESSION['producto'])) {
     <body class="container">
         <div class="jumbotron text-center">
             <h1>Lista</h1>
-            <!--<table>
+            </div>
+            <div class="text-center">
+            <p><table>
                 <?php
-                    /*foreach ($productos as $p) {
-                        echo '<tr><td>'.$p['id'].'</td><td>'.$p['nombre'].'</td>';
-                        echo '<td>'.$p['precio'].'</td><td>'.$p['cantidad'].'</td></tr>';
-                    }*/
+                foreach ($Lproductos as $p) {
+                    echo
+                    '<tr>
+                        <td>'.$p['id'].'</td>
+                        <td>'.$p['nombre'].'</td>
+                        <td>'.$p['precio'].'</td>
+                        <td>'.$p['cantidad'].'</td>
+                    </tr>';
+                };
                 ?>
-            </table>
-                -->
-        </div>
-        <div class="text-center">
+            </table><p>
         <p><a href="agregarProducto.php">agregar producto</a></p>
         <p><a href="home.php">volver a perfil</a></p>
         </div> 

@@ -51,11 +51,10 @@ class ControladorSesion
         $Mmail = $repo->modificar($email, $id);
         
         if ($Mmail===true){
-
             $usuario->setEmail($email);
-            return true."operacion realizada exitosamente" ;
+            return true;
         }else{
-            return false."operacion no realizada";
+            return false;
         };
     }
 
@@ -63,7 +62,7 @@ class ControladorSesion
 
     public function createProducto($nombre, $precio, $cantidad)
     {
-        $repoP = new RepositorioProducto();
+        $repoP = new RepositorioProducto;
 
         session_start();
         $usuario = unserialize($_SESSION['usuario']);
@@ -77,6 +76,13 @@ class ControladorSesion
             return [true, "producto creado correctamente"];
         }
     }
+
+    public function listarProductos(){
+        $repoP = new RepositorioProducto;
+        return $respuesta = $repoP->read();
+    }
+
+
 
     public function editarProducto($nombre, $precio, $cantidad){
 

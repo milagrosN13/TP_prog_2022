@@ -5,7 +5,6 @@ if (isset($_SESSION['usuario'])) {
     $usuario = unserialize($_SESSION['usuario']);
     $nomApe = $usuario->getNombreApellido();
     $email = $usuario->getEmail();
-    //$lista = $producto->getNombre();
 } else {
     header('Location: index.php');
 }
@@ -24,6 +23,7 @@ if (isset($_SESSION['usuario'])) {
       </div>    
       <div class="text-center">
         <h3>Hola <?php echo $nomApe;?> </h3>
+        <!--no se cambia el mail del la clase usuario al modificarlo con la funcion modificar mail-->
         <p>su mail es: <?php echo $email;?><p>
         <h3><a href="lista.php">lista</a></h3>
         <a href="modificar_email.php">modificar email</a>

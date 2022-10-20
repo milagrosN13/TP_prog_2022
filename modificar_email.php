@@ -17,7 +17,7 @@
             </form>
             <br>
             <button><a href="home.php">volver a perfil</a></button>
-        </div> 
+        </div>
     </body>
 </html>
 
@@ -29,6 +29,6 @@ $cs = new ControladorSesion();
 if (isset($_GET['email'])){
     return $cs->modificarMail($_GET['email'],);
 }else {
-    return false."no se escribio nada";
+    return $aleta = "no se pudo realizar";
 }
 ?>
