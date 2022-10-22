@@ -1,3 +1,12 @@
+<?php
+require_once 'clases/ControladorSesion.php';
+
+$cs = new ControladorSesion();
+
+if (isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['cantidad'])){
+    return $cs->createProducto($_POST ['nombre'], $_POST['precio'], $_POST['cantidad']);
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,8 +31,8 @@
 
         <form action="agregarProducto.php" method="post">
             <input name="nombre" class="form-control form-control-lg" placeholder="nombre producto"><br>
-            <input name="precio" class="form-control form-control-lg" placeholder="precio"><br>
-            <input name="cantidad" class="form-control form-control-lg" placeholder="cantidad"><br>
+            <input name="precio" type="number" class="form-control form-control-lg" placeholder="precio"><br>
+            <input name="cantidad" type="number" class="form-control form-control-lg" placeholder="cantidad"><br>
             <input type="submit" value="crear" class="btn btn-primary">
         </form>
         <br>    
@@ -33,14 +42,3 @@
         </div> 
     </body>
 </html>
-<?php
-require_once 'clases/ControladorSesion.php';
-
-$cs = new ControladorSesion();
-
-if (isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['cantidad'])){
-    return $cs->createProducto($_POST ['nombre'], $_POST['precio'], $_POST['cantidad']);
-}else {
-    return false."no se escribio nada";
-}
-?>

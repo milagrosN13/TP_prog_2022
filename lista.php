@@ -20,20 +20,29 @@ $Lproductos = $repoP->listarProductos();
             </div>
             <div class="text-center">
             <p><table>
+                
+                <tr>
+                    <td>Nombre</td>
+                    <td>Precio</td>
+                    <td>Cantidad</td>
+                </tr>
                 <?php
                 foreach ($Lproductos as $p) {
+                    $ids = [];
+                    $ids = $p->getId();
                     echo
-                    '<tr>
-                        <td>'.$p['id'].'</td>
-                        <td>'.$p['nombre'].'</td>
-                        <td>'.$p['precio'].'</td>
-                        <td>'.$p['cantidad'].'</td>
+                    '<tr>    
+                        <td>'.$p->getNombre().'</td>
+                        <td>'.$p->getPrecio().'</td>
+                        <td>'.$p->getCantidad().'</td>
                     </tr>';
                 };
                 ?>
             </table><p>
-        <p><a href="agregarProducto.php">agregar producto</a></p>
-        <p><a href="home.php">volver a perfil</a></p>
+            <p><a href="modificarProducto.php">modificar</a></p>
+            <p><a href="eliminarProducto.php">eliminar</a></p>
+            <p><a href="agregarProducto.php">agregar</a></p>
+            <p><a href="home.php">volver a perfil</a></p>
         </div> 
     </body>
 </html>

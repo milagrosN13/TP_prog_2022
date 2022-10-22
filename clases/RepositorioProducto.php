@@ -33,12 +33,29 @@ class RepositorioProducto extends Repositorio
         $q = "SELECT id, nombre, precio, cantidad, id_usuario FROM productos";
         $query = self::$conexion->prepare($q);
         if ($query->execute()) {
-            return /*resultado de la consulta en formato de lista */;
+            $query->bind_result($id, $nombre, $precio, $cantidad, $idUsuario);
+            $lista_de_productos = [];
+            while ($query->fetch() ) {
+                $lista_de_productos[] = new Producto($nombre, $precio, $cantidad, $idUsuario, $id);
+                
+            }
+            return $lista_de_productos;
         }
     }
 
-    public function update (){
-        
+    public function update ($nombre, $precio, $cantidad, $id){
+        $q = 'UPDATE productos SET nombre= ? , precio = ?, cantidad = ? WHERE id= ?';
+        $query = self::$conexion->prepare($q);
+        $query->bind_param(
+            "siii",
+            $nombre,
+            $precio,
+            $cantidad,
+            $id
+        );
+        if ($query->execute()){
+
+        } 
     }
 
     public function delete ($idProducto){

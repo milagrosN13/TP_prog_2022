@@ -52,6 +52,7 @@ class ControladorSesion
         
         if ($Mmail===true){
             $usuario->setEmail($email);
+            $_SESSION['usuario']= serialize($usuario);
             return true;
         }else{
             return false;
@@ -78,26 +79,23 @@ class ControladorSesion
         return $respuesta = $repoP->read();
     }
 
-    public function editarProducto($nombre, $precio, $cantidad){
+    public function editarProducto($nombre, $precio, $cantidad, $id){
         $repoP = new RepositorioProducto();
 
-        session_start();
-        $usuario= unserialize($_SESSION['usuario']);
-        $idUsuario=$usuario->getId();
-
-        $id = $repoP->create($nombre,$precio,$cantidad,$idUsuario);
-
-        if ( $id === false) {
-            return [false, "Error al crear producto"];
-        } else {
-
-            return [true, "producto fue modificado correctamente"];
-        }
+        $respuesta = $repoP->update ($nombre, $precio, $cantidad, $id);
+        if ($respuesta === true){
+            session_start();
+            $producto= unserialize($_SESSION['producto']);
+            $producto->setNombre($nombre);
+            $producto->setPrecio($precio);
+            $producto->setCantidad($cantidad);
+            $_SESSION['producto'] = serialize($producto);
+            return true;
+        };
 
     }
 
     public function eliminarProducto(){
-
         $repoP = new RepositorioProducto();
 
 
