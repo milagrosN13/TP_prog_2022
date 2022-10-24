@@ -4,7 +4,8 @@ require_once 'clases/ControladorSesion.php';
 $cs = new ControladorSesion();
 
 if (isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['cantidad'])){
-    return $cs->createProducto($_POST ['nombre'], $_POST['precio'], $_POST['cantidad']);
+    $cs->createProducto($_POST ['nombre'], $_POST['precio'], $_POST['cantidad']);
+    return header('Location:lista.php');
 }
 ?>
 <!DOCTYPE html>

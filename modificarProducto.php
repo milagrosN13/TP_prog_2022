@@ -3,16 +3,18 @@ require_once 'clases/ControladorSesion.php';
 
 $repoP = new ControladorSesion;
 
-$id = $_POST['id'];
-$nombre = $_POST['nombre'];
-$precio = $_POST['precio'];
-$cantidad = $_POST['cantidad'];
-
-if (isset($nombre) && isset($precio) && isset($cantidad) && isset($id)){
-    return $repoP->editarProducto($_POST['nombre'], $_POST['precio'], $_POST['cantidad'], $_POST['id']);
+if (isset($_GET['id']))
+{
+    $id = $_GET['id'];
+    $p = $repoP->traerProducto($id);
 }
 
+if (isset($_POST['nombre']) && isset($_POST['precio']) && isset($_POST['cantidad'])){
+    $p = $repoP->editarProducto($_POST['nombre'], $_POST['precio'], $_POST['cantidad'],$_POST['id']);
+    return header('Location:lista.php');
+}
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,14 +25,15 @@ if (isset($nombre) && isset($precio) && isset($cantidad) && isset($id)){
     </head>
     <body class="container">
         <div class="jumbotron text-center">
-            <h1><?php echo $nombre;?></h1>
+            <h1><?php echo $p->getNombre()?></h1>
             
         </div>
         <dev class="text-center">
             <form action="modificarProducto.php" method="post">
-                <input name="nombre" class="form-control form-control-lg" placeholder="<?php echo $nombre ?>"><br>
-                <input name="precio" type="number" class="form-control form-control-lg" placeholder="<?php echo $precio ?>"><br>
-                <input name="cantidad" type="number" class="form-control form-control-lg" placeholder="<?php echo $cantidad ?>"><br>
+                <input name="id" type = "hidden" value="<?php echo $p->getId()?>">
+                <input name="nombre" class="form-control form-control-lg" value="<?php echo $p->getNombre()?>"><br>
+                <input name="precio" type="number" class="form-control form-control-lg" value="<?php echo $p->getNombre()?>"><br>
+                <input name="cantidad" type="number" class="form-control form-control-lg" value="<?php echo $p->getNombre()?>"><br>
                 <input type="submit" value="modificar" class="btn btn-primary">
             </form>
             <br>    

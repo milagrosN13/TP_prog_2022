@@ -33,12 +33,12 @@ class RepositorioUsuario extends Repositorio
         $email = $usuario->getEmail();
         $clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
         $query->bind_param(
-            "ssss",
+            "sssss",
             $nombre_usuario,
+            $clave_encriptada,
             $nombre,
             $apellido,
-            $email,
-            $clave_encriptada
+            $email
         );
         if ($query->execute()) {
            // Se guardó bien, retornamos el id del usuario

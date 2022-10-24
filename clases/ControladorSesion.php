@@ -68,15 +68,21 @@ class ControladorSesion
         $usuario = unserialize($_SESSION['usuario']);
         $idUsuario=$usuario->getId();
 
-        $producto = $repoP->create($nombre,$precio,$cantidad,$idUsuario);
-        
-        session_start();
+        $producto = [];
+        $producto = array_push($producto,($repoP->create($nombre,$precio,$cantidad,$idUsuario)));
+
         $_SESSION['producto'][2] = serialize($producto);
     }
 
     public function listarProductos(){
         $repoP = new RepositorioProducto;
         return $respuesta = $repoP->read();
+    }
+
+    public function traerProducto($id)
+    {
+        $repoP = new RepositorioProducto;
+        return $respuesta = $repoP->readId($id);
     }
 
     public function editarProducto($nombre, $precio, $cantidad, $id){
@@ -90,15 +96,15 @@ class ControladorSesion
             $producto->setPrecio($precio);
             $producto->setCantidad($cantidad);
             $_SESSION['producto'] = serialize($producto);
-            return true;
+            return $producto;
         };
 
     }
 
-    public function eliminarProducto(){
+    public function eliminarProducto($id){
         $repoP = new RepositorioProducto();
 
-
+        $repuesta = $repoP->delete ($id);
     }
 
 }

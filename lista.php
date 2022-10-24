@@ -16,11 +16,12 @@ $Lproductos = $repoP->listarProductos();
     </head>
     <body class="container">
         <div class="jumbotron text-center">
-            <h1>Lista</h1>
-            </div>
-            <div class="text-center">
+                <h1>Lista</h1>
+        </div>
+        <div class="text-center">
+            <p><a href="agregarProducto.php">agregar</a></p>
+            <p><a href="home.php">volver a perfil</a></p>
             <p><table>
-                
                 <tr>
                     <td>Nombre</td>
                     <td>Precio</td>
@@ -28,21 +29,28 @@ $Lproductos = $repoP->listarProductos();
                 </tr>
                 <?php
                 foreach ($Lproductos as $p) {
-                    $ids = [];
-                    $ids = $p->getId();
                     echo
                     '<tr>    
                         <td>'.$p->getNombre().'</td>
                         <td>'.$p->getPrecio().'</td>
-                        <td>'.$p->getCantidad().'</td>
+                        <td>'.$p->getCantidad().'</td>';
+                    echo '
+                        <td><a href="modificarProducto.php?id='.$p->getId().'">modificar</a></td>
+                        <td><a href="eliminarProducto.php?id='.$p->getId().'">eliminar</a></td>
                     </tr>';
                 };
                 ?>
             </table><p>
-            <p><a href="modificarProducto.php">modificar</a></p>
-            <p><a href="eliminarProducto.php">eliminar</a></p>
-            <p><a href="agregarProducto.php">agregar</a></p>
-            <p><a href="home.php">volver a perfil</a></p>
+            <?php
+            $total = 0;
+            $cantidad = 0;
+                foreach ($Lproductos as $p) {
+                    //mostrar sumade precios y cantidades 
+                    $total += $p->getPrecio();
+                    $cantidad += $p->getCantidad();
+                };
+                echo '<p>El precio total es: '.$total.' y los productos a comprar '.$cantidad.'</p>';
+                ?>
         </div> 
     </body>
 </html>

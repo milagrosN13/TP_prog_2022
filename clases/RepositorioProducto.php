@@ -43,6 +43,19 @@ class RepositorioProducto extends Repositorio
         }
     }
 
+    public function readId($id){
+        $q = "SELECT id, nombre, precio, cantidad, id_usuario FROM productos WHERE id = ?";
+        $query = self::$conexion->prepare($q);
+        $query->bind_param("i", $id);
+        if ($query->execute()) {
+            $query->bind_result($id, $nombre, $precio, $cantidad, $idUsuario);
+            if ($query->fetch() ) {
+                return new Producto($nombre, $precio, $cantidad, $idUsuario, $id);
+            }
+            return false;
+        }
+    }
+
     public function update ($nombre, $precio, $cantidad, $id){
         $q = 'UPDATE productos SET nombre= ? , precio = ?, cantidad = ? WHERE id= ?';
         $query = self::$conexion->prepare($q);
@@ -54,15 +67,23 @@ class RepositorioProducto extends Repositorio
             $id
         );
         if ($query->execute()){
-
-        } 
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function delete ($idProducto){
-        $q = "DELETE FROM producto WHERE id = ?";
+        $q = "DELETE FROM productos WHERE id = ?";
 
         $query = self::$conexion->prepare($q);
 
         $query->bind_param("i",$idProducto);
+
+        if ($query->execute()){
+            return true;
+        } else {
+            return false;
+        }
     }
 }
