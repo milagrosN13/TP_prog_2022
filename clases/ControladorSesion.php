@@ -68,8 +68,7 @@ class ControladorSesion
         $usuario = unserialize($_SESSION['usuario']);
         $idUsuario=$usuario->getId();
 
-        $producto = [];
-        $producto = array_push($producto,($repoP->create($nombre,$precio,$cantidad,$idUsuario)));
+        $producto = $repoP->create($nombre,$precio,$cantidad,$idUsuario);
 
         $_SESSION['producto'][2] = serialize($producto);
     }
